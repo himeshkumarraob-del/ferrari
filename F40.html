@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FERRARI F40 | Raw Performance Experience</title>
+
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+<style>
+/* --- RESET & ROOT COLORS --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --ferrari-red: #ff2800;
+    --deep-black: #000000;
+    --dark-grey: #111111;
+    --neon-glow: rgba(255, 40, 0, 0.4);
+    --text-color: #f0f0f0;
+}
+/* Floating Home Button */
+.home-btn {
+  position: fixed;
+  bottom: 40px;
+  left: 40px;
+  z-index: 9999;
+  background: var(--ferrari-red);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: none;
+  box-shadow: 0 8px 25px rgba(255, 40, 0, 0.4);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.home-btn:hover {
+  background: #fff;
+  color: var(--ferrari-red);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(255, 40, 0, 0.6);
+}
+
+body {
+    background-color: var(--deep-black);
+    color: var(--text-color);
+    font-family: 'Avenir', 'Segoe UI', Helvetica, sans-serif;
+    overflow-x: hidden;
+}
+
+/* --- THE PARALLAX BACKGROUND EFFECT --- */
+#bg-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100vh;
+    /* Use your local path here */
+    background: 
+        linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.85)),
+        url("C:/Users/HP/Desktop/ferrari/ferrari f40 bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    z-index: -1;
+}
+
+/* --- HERO SECTION --- */
+#hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+#hero h1 {
+    font-size: clamp(3rem, 10vw, 8rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 15px;
+    margin-bottom: 20px;
+    position: relative;
+    /* The Glow Effect */
+    color: white;
+    text-shadow: 0 0 10px white, 0 0 20px var(--ferrari-red), 0 0 40px var(--ferrari-red);
+}
+
+/* The Animated Underline */
+#hero h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px; left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 4px;
+    background-color: var(--ferrari-red);
+    transition: width 0.6s ease-out;
+}
+
+#hero:hover h1::after { width: 300px; }
+
+#hero p { font-size: 1.1rem; letter-spacing: 3px; color: #aaa; text-transform: uppercase; }
+
+/* --- 3D MODEL SECTION --- */
+#car-view {
+    padding: 80px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+}
+
+#car-view model-viewer {
+    width: 80%;
+    max-width: 900px;
+    height: 450px;
+    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.2));
+}
+
+#car-view::before {
+    content: 'INTERACTIVE 3D';
+    position: absolute;
+    left: 20px; top: 20px;
+    font-size: 0.7rem; color: #555; letter-spacing: 2px;
+}
+
+/* --- DESCRIPTION & THE REVEAL INTERACTION --- */
+#reveal {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#reveal .quote {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-style: italic;
+    color: #eee;
+    line-height: 1.4;
+    margin-bottom: 30px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+/* The "Glow" Button */
+#reveal-btn {
+    position: relative;
+    background: transparent;
+    border: 2px solid var(--ferrari-red);
+    color: white;
+    padding: 18px 45px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+}
+
+#reveal-btn:hover {
+    box-shadow: 0 0 20px rgba(255, 40, 0, 0.6);
+    background-color: var(--ferrari-red);
+    transform: translateY(-2px);
+}
+
+#reveal-btn span {
+    position: absolute;
+    background: white;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    border-radius: 50%;
+    animation: ripple 0.6s linear;
+}
+
+@keyframes ripple {
+    0% { width: 0; height: 0; opacity: 0.5; }
+    100% { width: 500px; height: 500px; opacity: 0; }
+}
+
+/* --- THE ACTIVE SPECIFICATIONS INTERACTION --- */
+#specifications {
+    margin: 80px auto;
+    width: 100%;
+    max-width: 1100px;
+    opacity: 0;
+    transition: opacity 0.6s ease-out;
+}
+
+.active { display: block !important; }
+
+.hidden { display: none; }
+
+.spec-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 20px;
+}
+
+/* ACTIVE SPEC CARDS - THE "VIBRATE" HOVER */
+.spec-card {
+    background: linear-gradient(135deg, var(--dark-grey), var(--deep-black));
+    padding: 40px;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.05);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.1s ease;
+}
+
+/* Visual tachometer line effect */
+.spec-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0%; height: 3px;
+    background-color: var(--ferrari-red);
+    transition: width 0.4s ease-out;
+}
+
+.spec-card:hover {
+    border-color: rgba(255,255,255,0.1);
+    box-shadow: 0 0 15px rgba(255, 40, 0, 0.3);
+    /* Shakes slightly like an engine */
+    transform: translate(1px, 1px) scale(1.01);
+}
+
+.spec-card:hover::before { width: 100%; }
+
+.spec-card h3 {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: #666;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.spec-card p {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #f0f0f0;
+    /* Add subtle shadow for definition */
+    text-shadow: 1px 1px 2px black;
+}
+
+/* --- FOOTER --- */
+footer {
+    padding: 60px 20px;
+    text-align: center;
+    background: linear-gradient(to top, var(--dark-grey), var(--deep-black));
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.8rem;
+    color: #444;
+}
+
+</style>
+</head>
+
+<body>
+    <a href="C:\Users\HP\Desktop\ferrari\ferrari vid.html" class="home-btn">🏠 Home</a>
+
+<div id="bg-container"></div>
+
+<audio id="f40Sound" preload="auto">
+  <source src="C:/Users/HP/Desktop/ferrari/f40_rev.mp3" type="audio/mpeg">
+</audio>
+
+<section id="hero">
+    <p>THE LAST MASTERPIECE</p>
+    <h1>F40</h1>
+    <p>BY ENZO FERRARI</p>
+</section>
+<img src = 
+
+<section id="reveal">
+    <p class="quote">"I wanted it to be fast, and so it was..."</p>
+    <button id="reveal-btn">EXPERIENCE THE SPECIFICATIONS</button>
+</section>
+
+<section id="specifications" class="hidden">
+    <div class="spec-grid">
+        <div class="spec-card">
+            <h3>Engine</h3>
+            <p>2.9L TWIN-TURBO V8</p>
+        </div>
+        <div class="spec-card">
+            <h3>Max RPM</h3>
+            <p>7,800 RPM</p>
+        </div>
+        <div class="spec-card">
+            <h3>0-100 km/h</h3>
+            <p>3.1s</p>
+        </div>
+        <div class="spec-card">
+            <h3>Top Speed</h3>
+            <p>324 km/h</p>
+        </div>
+        <div class="spec-card">
+            <h3>Dry Weight</h3>
+            <p>1,100 kg</p>
+        </div>
+        <div class="spec-card">
+            <h3>Transmission</h3>
+            <p>5-Speed Manual</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    © 2026 F40 TRIBUTE | Raw Performance | Driven by Soul
+</footer>
+
+<script>
+    const btn = document.getElementById("reveal-btn");
+    const specs = document.getElementById("specifications");
+    const engineSound = document.getElementById("f40Sound");
+
+    // Unified Reveal and Sound Play
+    btn.addEventListener("click", () => {
+        if (specs.classList.contains("hidden")) {
+            // SHOW SPECS
+            specs.classList.remove("hidden");
+            
+            // PLAY SOUND
+            engineSound.currentTime = 0; // Reset sound
+            engineSound.play().catch(e => {
+                console.log("Audio failed. To fix, click anywhere on the page first.");
+                engineSound.muted = true; // Temporary fix
+            });
+
+            // Delay opacity to let grid render
+            setTimeout(() => {
+                specs.style.opacity = "1";
+            }, 10);
+
+            btn.textContent = "HIDE SPECIFICATIONS";
+            
+            // Smoothly center the specs on screen
+            specs.scrollIntoView({ behavior: "smooth", block: "center" });
+
+        } else {
+            // HIDE SPECS
+            specs.style.opacity = "0";
+            setTimeout(() => {
+                specs.classList.add("hidden");
+            }, 500); // Wait for transition
+            btn.textContent = "EXPERIENCE THE SPECIFICATIONS";
+        }
+    });
+
+    // Added Ripple Effect to the Button
+    btn.addEventListener("click", function(e) {
+        let x = e.clientX - e.target.offsetLeft;
+        let y = e.clientY - e.target.offsetTop;
+        let ripple = document.createElement('span');
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        this.appendChild(ripple);
+        setTimeout(() => { ripple.remove(); }, 600);
+    });
+</script>
+
+</body>
+</html>
