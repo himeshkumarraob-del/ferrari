@@ -1,0 +1,1664 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Ferrari Webpage</title>
+  <style>
+    :root {
+      --ferrari-red: #ff2800;
+      --ferrari-red-hover: #e02200;
+      --ferrari-gold: #c5a059;
+      --ferrari-black: #0a0a0a;
+      --glass-bg: rgba(10, 10, 10, 0.5);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --text-main: #f5f5f5;
+      --text-muted: #aaaaaa;
+      --font-body: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-heading: 'Helvetica Neue', 'Arial', sans-serif;
+      /* Fallback for clean bold caps */
+    }
+    /* Floating Home Button */
+.home-btn {
+  position: fixed;
+  bottom: 40px;
+  left: 40px;
+  z-index: 9999;
+  background: var(--ferrari-red);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: none;
+  box-shadow: 0 8px 25px rgba(255, 40, 0, 0.4);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.home-btn:hover {
+  background: #fff;
+  color: var(--ferrari-red);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(255, 40, 0, 0.6);
+}
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text-main);
+      cursor: none;
+      scroll-behavior: smooth;
+      background-color: var(--ferrari-black);
+      overflow-x: hidden;
+    }
+
+    /* Custom Cursor */
+    .cursor {
+      width: 40px;
+      height: 40px;
+      border: 2px solid rgba(255, 40, 0, 0.8);
+      background-color: transparent;
+      border-radius: 50%;
+      position: fixed;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+      box-shadow: 0 0 15px rgba(255, 40, 0, 0.6);
+      z-index: 99999;
+    }
+
+    .cursor::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px;
+      height: 8px;
+      background-color: var(--ferrari-red);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--ferrari-red);
+    }
+
+    /* Video background */
+    #bg-video {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      filter: brightness(0.6);
+      z-index: -1;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--glass-border);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    header h1 {
+      font-family: var(--font-heading);
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      font-weight: 900;
+      font-size: 42px;
+      color: var(--text-main);
+    }
+
+    header h1 span {
+      color: var(--ferrari-red);
+    }
+
+    .search-box input {
+      padding: 15px 30px;
+      width: 400px;
+      outline: none;
+      font-size: 18px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 30px;
+      color: var(--text-main);
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+    }
+
+    .search-box input:focus {
+      border-color: var(--ferrari-red);
+      background: rgba(20, 20, 20, 0.8);
+      box-shadow: 0 0 15px rgba(255, 40, 0, 0.4);
+    }
+
+    header nav {
+      display: flex;
+      gap: 30px;
+    }
+
+    nav a {
+      text-decoration: none;
+    }
+
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 25px;
+      color: var(--text-main);
+      font-size: 20px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: none;
+      padding: 16px 32px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(5px);
+    }
+
+    .nav-btn:hover {
+      background: #ffd700;
+      border-color: #ffd700;
+      color: #000;
+      box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+      transform: translateY(-2px);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 180px 10%;
+      text-align: center;
+      min-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-meta {
+      font-size: 18px;
+      letter-spacing: 8px;
+      color: var(--ferrari-gold);
+      text-transform: uppercase;
+      margin-bottom: 25px;
+      font-weight: bold;
+    }
+
+    .hero h1 {
+      font-family: var(--font-heading);
+      font-size: 140px;
+      font-weight: 900;
+      letter-spacing: 12px;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+      color: var(--ferrari-red);
+      animation: glowingText 3s infinite alternate;
+      /* removed static text-shadow */
+    }
+
+    .hero p {
+      font-size: 30px;
+      line-height: 1.8;
+      max-width: 900px;
+      color: var(--text-muted);
+      margin-bottom: 50px;
+      font-weight: 300;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 24px 60px;
+      background-color: var(--ferrari-red);
+      color: var(--text-main);
+      border: 1px solid var(--ferrari-red);
+      border-radius: 4px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 20px;
+      text-decoration: none;
+      transition: all 0.4s ease;
+      cursor: none;
+      box-shadow: 0 8px 25px rgba(255, 40, 0, 0.3);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      background-color: transparent;
+      box-shadow: 0 15px 35px rgba(255, 40, 0, 0.5);
+    }
+
+    /* Merch Section */
+    .merch-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 60px 0;
+    }
+
+    .merch {
+      position: relative;
+      background: var(--glass-bg);
+      color: var(--text-main);
+      border: 1px solid var(--glass-border);
+      border-radius: 4px;
+      padding: 30px 100px;
+      font-size: 32px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 6px;
+      cursor: none;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .merch-shimmer {
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: all 0.6s ease;
+    }
+
+    .merch:hover {
+      background: var(--ferrari-red);
+      border-color: var(--ferrari-red);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(255, 40, 0, 0.4);
+    }
+
+    .merch:hover .merch-shimmer {
+      left: 100%;
+    }
+
+    /* Racing DNA Section */
+    .dna-section {
+      padding: 100px 10%;
+      background: linear-gradient(to right, rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.4));
+      backdrop-filter: blur(8px);
+      border-top: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+      margin: 50px 0;
+    }
+
+    .dna-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .dna-content h2 {
+      font-size: 42px;
+      color: var(--ferrari-red);
+      text-transform: uppercase;
+      letter-spacing: 6px;
+      margin-bottom: 25px;
+    }
+
+    .dna-content p {
+      font-size: 18px;
+      line-height: 1.8;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      font-weight: 300;
+    }
+
+    .dna-stats {
+      display: flex;
+      gap: 60px;
+    }
+
+    .dna-stats h4 {
+      font-size: 40px;
+      color: var(--ferrari-gold);
+      margin-bottom: 5px;
+    }
+
+    .dna-stats p {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .dna-image-wrapper {
+      position: relative;
+    }
+
+    .dna-image-wrapper img {
+      width: 100%;
+      border-radius: 8px;
+      filter: grayscale(20%) contrast(1.2);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      transition: filter 0.4s ease;
+    }
+
+    .dna-image-wrapper:hover img {
+      filter: grayscale(0%) contrast(1.1);
+    }
+
+    .dna-quote {
+      position: absolute;
+      bottom: -30px;
+      right: -30px;
+      background: var(--ferrari-red);
+      padding: 25px 35px;
+      border-radius: 4px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
+    }
+
+    .dna-quote p.quote-text {
+      font-weight: 600;
+      font-style: italic;
+      font-size: 16px;
+      margin-bottom: 10px;
+      color: white;
+    }
+
+    .dna-quote p.quote-author {
+      font-size: 13px;
+      text-align: right;
+      color: rgba(255, 255, 255, 0.8);
+      letter-spacing: 2px;
+    }
+
+    /* Models Cards */
+    .section-title {
+      text-align: center;
+      font-family: var(--font-heading);
+      font-size: 60px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 12px;
+      color: var(--text-main);
+      margin: 100px 0 60px 0;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: var(--ferrari-red);
+      margin: 25px auto 0;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 60px;
+      padding: 0 5%;
+      max-width: 1600px;
+      margin: 0 auto 100px auto;
+      perspective: 1200px;
+    }
+
+    .card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      padding: 0;
+      text-align: left;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: none;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .card img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      border-bottom: 1px solid var(--glass-border);
+      transition: transform 0.6s ease;
+    }
+
+    .card-content {
+      padding: 30px;
+      background: linear-gradient(to top, rgba(10, 10, 10, 1), rgba(10, 10, 10, 0.8));
+    }
+
+    .card h3 {
+      font-size: 24px;
+      letter-spacing: 3px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      color: var(--text-main);
+    }
+
+    .card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 50px rgba(255, 40, 0, 0.4), 0 0 25px rgba(255, 215, 0, 0.3);
+      border-color: rgba(255, 215, 0, 0.8);
+      z-index: 10;
+    }
+
+    .card:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Footer */
+    .footer {
+      background-color: var(--ferrari-black);
+      padding: 80px 10% 40px 10%;
+      border-top: 1px solid var(--glass-border);
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 60px;
+    }
+
+    .footer-brand h2 {
+      color: var(--ferrari-red);
+      font-size: 28px;
+      letter-spacing: 4px;
+      margin: 0 0 10px 0;
+      font-family: var(--font-heading);
+    }
+
+    .footer-brand .est {
+      color: var(--ferrari-gold);
+      font-size: 12px;
+      letter-spacing: 3px;
+      margin-bottom: 20px;
+    }
+
+    .footer-brand p {
+      font-size: 14px;
+      line-height: 1.6;
+      max-width: 300px;
+      color: var(--text-muted);
+    }
+
+    .footer-column h4 {
+      color: var(--ferrari-gold);
+      font-size: 13px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 25px;
+      border-bottom: 1px solid #222;
+      padding-bottom: 10px;
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer-column ul li a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 13px;
+      transition: color 0.3s;
+    }
+
+    .footer-column ul li a:hover {
+      color: var(--text-main);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-circle {
+      width: 36px;
+      height: 36px;
+      border: 1px solid #333;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 12px;
+    }
+
+    .social-circle:hover {
+      border-color: var(--ferrari-red);
+      background: rgba(255, 40, 0, 0.1);
+      color: var(--text-main);
+    }
+
+    .care-btn {
+      display: inline-block;
+      border: 1px solid var(--text-muted);
+      padding: 12px 24px;
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 12px;
+      letter-spacing: 2px;
+      border-radius: 4px;
+      margin-top: 25px;
+      transition: 0.3s;
+    }
+
+    .care-btn:hover {
+      background: var(--text-main);
+      color: var(--ferrari-black);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #222;
+      padding-top: 30px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .footer-bottom a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-left: 20px;
+      transition: 0.3s;
+    }
+
+    .footer-bottom a:hover {
+      color: var(--text-main);
+    }
+
+    /* Parallax Banner */
+    .parallax-banner {
+      position: relative;
+      background-image: url('https://images.unsplash.com/photo-1525286524318-ff15fdb9f2b8?auto=format&fit=crop&w=2560&q=80');
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 70vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 100px 0;
+      border-top: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .parallax-overlay {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 60px 100px;
+      backdrop-filter: blur(5px);
+      text-align: center;
+      border: 1px solid rgba(255, 40, 0, 0.3);
+      border-radius: 8px;
+    }
+    .parallax-text {
+      font-size: 50px;
+      font-family: var(--font-heading);
+      text-transform: uppercase;
+      letter-spacing: 5px;
+      margin-bottom: 20px;
+      color: var(--text-main);
+      text-shadow: 0 0 20px rgba(255, 40, 0, 0.8);
+    }
+    .parallax-sub {
+      color: var(--ferrari-gold);
+      font-size: 24px;
+      letter-spacing: 15px;
+    }
+
+    /* Engineering Split */
+    .engineering-split {
+      display: flex;
+      max-width: 1600px;
+      margin: 0 auto 150px auto;
+      padding: 0 5%;
+      gap: 60px;
+      align-items: center;
+    }
+    .eng-text {
+      flex: 1;
+    }
+    .eng-text h2 {
+      font-size: 60px;
+      font-family: var(--font-heading);
+      color: var(--ferrari-red);
+      text-transform: uppercase;
+      margin-bottom: 30px;
+      letter-spacing: 4px;
+    }
+    .eng-text p {
+      font-size: 24px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+    .eng-stats {
+      display: flex;
+      gap: 30px;
+    }
+    .stat-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      padding: 30px;
+      text-align: center;
+      border-radius: 8px;
+      flex: 1;
+    }
+    .stat-box span.count-up {
+      display: block;
+      font-size: 60px;
+      font-weight: bold;
+      color: var(--ferrari-gold);
+      margin-bottom: 10px;
+    }
+    .stat-box span:last-child {
+      font-size: 16px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: var(--text-main);
+    }
+    .eng-image {
+      flex: 1;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    }
+    .eng-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.8s ease;
+    }
+    .eng-image:hover img {
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 1100px) {
+      .engineering-split {
+        flex-direction: column;
+      }
+      .parallax-text {
+        font-size: 30px;
+      }
+      .parallax-overlay {
+        padding: 40px;
+      }
+    }
+
+    /* Login Screen */
+    /* Locate this block near line 492 in your file */
+#login {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--ferrari-black);
+  /* Updated path below */
+  background-image: url("C:/Users/HP/Desktop/ferrari/loginpage1.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10002;
+  transition: opacity 0.8s ease;
+}
+    #login.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .login-box {
+      background: rgba(10, 10, 10, 0.8);
+      backdrop-filter: blur(15px);
+      padding: 50px;
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .login-box h2 {
+      font-family: var(--font-heading);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+
+    .login-box input {
+      display: block;
+      margin: 15px 0;
+      padding: 15px;
+      width: 100%;
+      border-radius: 4px;
+      font-size: 15px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      border: 1px solid var(--glass-border);
+      transition: border-color 0.3s;
+      outline: none;
+    }
+
+    .login-box input:focus {
+      border-color: var(--ferrari-red);
+    }
+
+    .login-box button {
+      padding: 15px;
+      width: 100%;
+      background: var(--ferrari-red);
+      color: var(--text-main);
+      border: none;
+      border-radius: 4px;
+      margin-top: 15px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .login-box button:hover {
+      background: var(--ferrari-red-hover);
+      box-shadow: 0 5px 15px rgba(255, 40, 0, 0.4);
+    }
+
+    #error {
+      margin-top: 15px;
+      color: var(--ferrari-red);
+      font-size: 13px;
+      height: 20px;
+    }
+
+    @keyframes shake {
+      0% {
+        transform: translateX(0);
+      }
+
+      25% {
+        transform: translateX(-10px);
+      }
+
+      50% {
+        transform: translateX(10px);
+      }
+
+      75% {
+        transform: translateX(-10px);
+      }
+
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    @media (max-width: 900px) {
+
+      .dna-grid,
+      .footer-top {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+      }
+
+      .search-box input {
+        width: 100%;
+      }
+
+      .hero h1 {
+        font-size: 50px;
+      }
+
+      .dna-quote {
+        right: 20px;
+        bottom: -20px;
+        padding: 15px;
+      }
+    }
+
+    /* Scroll Animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(60px);
+      transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes glowingText {
+      from { text-shadow: 0 5px 20px rgba(0,0,0,0.8), 0 0 10px rgba(255,40,0,0.6); }
+      to { text-shadow: 0 5px 30px rgba(0,0,0,0.9), 0 0 40px rgba(255,40,0,1); }
+    }
+
+    /* ============================================
+       RESPONSIVE / MOBILE STYLES
+       ============================================ */
+
+    /* Hamburger button - hidden on desktop */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      z-index: 1001;
+    }
+    .hamburger span {
+      display: block;
+      width: 100%;
+      height: 3px;
+      background: var(--text-main);
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(9px) rotate(45deg);
+    }
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-9px) rotate(-45deg);
+    }
+
+    /* Mobile nav overlay */
+    .mobile-nav-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(10,10,10,0.96);
+      backdrop-filter: blur(12px);
+      z-index: 1000;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 30px;
+    }
+    .mobile-nav-overlay.open {
+      display: flex;
+    }
+    .mobile-nav-overlay a {
+      text-decoration: none;
+    }
+    .mobile-nav-overlay .nav-btn {
+      font-size: 22px;
+      padding: 18px 50px;
+      width: 260px;
+      text-align: center;
+    }
+
+    /* Tablet: 768px – 1024px */
+    @media (max-width: 1024px) {
+      header {
+        padding: 16px 30px;
+      }
+      header h1 {
+        font-size: 32px;
+        letter-spacing: 4px;
+      }
+      .search-box input {
+        width: 260px;
+        font-size: 15px;
+        padding: 12px 20px;
+      }
+      .nav-btn {
+        font-size: 16px;
+        padding: 12px 22px;
+      }
+      header nav {
+        gap: 16px;
+      }
+      .hero h1 {
+        font-size: 90px;
+      }
+      .hero p {
+        font-size: 22px;
+      }
+      .btn {
+        padding: 18px 44px;
+        font-size: 16px;
+      }
+      .section-title {
+        font-size: 44px;
+        letter-spacing: 8px;
+      }
+      .cards {
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 40px;
+      }
+      .eng-text h2 {
+        font-size: 44px;
+      }
+      .eng-text p {
+        font-size: 18px;
+      }
+      .parallax-text {
+        font-size: 36px;
+      }
+      .parallax-overlay {
+        padding: 40px 60px;
+      }
+    }
+
+    /* Mobile: up to 767px */
+    @media (max-width: 767px) {
+      /* Hide desktop nav, show hamburger */
+      header nav {
+        display: none;
+      }
+      .hamburger {
+        display: flex;
+      }
+      header {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 20px;
+        gap: 10px;
+      }
+      header h1 {
+        font-size: 26px;
+        letter-spacing: 3px;
+        order: 1;
+      }
+      .hamburger {
+        order: 2;
+      }
+      .search-box {
+        order: 3;
+        width: 100%;
+      }
+      .search-box input {
+        width: 100%;
+        font-size: 14px;
+        padding: 12px 18px;
+      }
+
+      /* Hero */
+      .hero {
+        padding: 100px 6% 80px;
+        min-height: auto;
+      }
+      .hero-meta {
+        font-size: 12px;
+        letter-spacing: 4px;
+      }
+      .hero h1 {
+        font-size: 52px;
+        letter-spacing: 6px;
+      }
+      .hero p {
+        font-size: 16px;
+        line-height: 1.7;
+      }
+      .btn {
+        padding: 16px 36px;
+        font-size: 14px;
+        letter-spacing: 2px;
+      }
+
+      /* Merch */
+      .merch {
+        padding: 24px 40px;
+        font-size: 20px;
+        letter-spacing: 3px;
+      }
+
+      /* DNA Section */
+      .dna-section {
+        padding: 60px 6%;
+      }
+      .dna-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .dna-content h2 {
+        font-size: 28px;
+        letter-spacing: 3px;
+      }
+      .dna-content p {
+        font-size: 15px;
+      }
+      .dna-stats {
+        gap: 30px;
+      }
+      .dna-stats h4 {
+        font-size: 28px;
+      }
+      .dna-quote {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        margin-top: 20px;
+        border-radius: 4px;
+      }
+
+      /* Parallax */
+      .parallax-banner {
+        background-attachment: scroll; /* fixes iOS parallax glitch */
+        height: auto;
+        padding: 60px 20px;
+        margin: 60px 0;
+      }
+      .parallax-overlay {
+        padding: 30px 24px;
+      }
+      .parallax-text {
+        font-size: 22px;
+        letter-spacing: 2px;
+      }
+      .parallax-sub {
+        font-size: 14px;
+        letter-spacing: 6px;
+      }
+
+      /* Engineering Split */
+      .engineering-split {
+        flex-direction: column;
+        padding: 0 6%;
+        gap: 40px;
+        margin-bottom: 80px;
+      }
+      .eng-text h2 {
+        font-size: 34px;
+        letter-spacing: 2px;
+      }
+      .eng-text p {
+        font-size: 16px;
+      }
+      .eng-stats {
+        flex-direction: column;
+        gap: 16px;
+      }
+      .stat-box span.count-up {
+        font-size: 44px;
+      }
+
+      /* Cards */
+      .section-title {
+        font-size: 28px;
+        letter-spacing: 6px;
+        margin: 60px 0 30px;
+      }
+      .cards {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 0 6%;
+        margin-bottom: 60px;
+      }
+      .card img {
+        height: 220px;
+      }
+
+      /* Footer */
+      .footer {
+        padding: 60px 6% 30px;
+      }
+      .footer-top {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding-bottom: 40px;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+      .footer-bottom a {
+        margin-left: 10px;
+      }
+
+      /* Hide custom cursor on touch devices */
+      .cursor {
+        display: none;
+      }
+      body {
+        cursor: auto;
+      }
+      a, button, .btn, .card, input {
+        cursor: pointer;
+      }
+
+      /* Login box */
+      .login-box {
+        padding: 36px 24px;
+        max-width: 90vw;
+      }
+    }
+
+    /* Very small phones */
+    @media (max-width: 380px) {
+      .hero h1 {
+        font-size: 40px;
+      }
+      .merch {
+        font-size: 16px;
+        padding: 20px 28px;
+        letter-spacing: 2px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Login Overlay -->
+  <div id="login">
+    <div class="login-box">
+      <h2>Ferrari Login</h2>
+      <input type="text" id="username" placeholder="Username">
+      <input type="password" id="password" placeholder="Password">
+      <button onclick="login()">Enter</button>
+      <p id="error"></p>
+    </div>
+  </div>
+
+  <video autoplay muted loop id="bg-video">
+    <source src="C:\Users\HP\Desktop\ferrari\13684277_3840_2160_24fps.mp4" type="video/mp4">
+  </video>
+
+  <!-- Header -->
+  <header>
+    <h1>Ferrari</h1>
+    <div class="search-box">
+      <input type="text" id="carSearch" onkeydown="handleSearch(event)" placeholder="Search Cars" autocomplete="off">
+    </div>
+    <nav>
+      <a href="C:\Users\HP\Desktop\ferrari\ferrari vid.html" class="nav-btn">Home</a>
+      <a href="https://www.ferrari.com/en-EN/formula1" target="_blank"><button class="nav-btn">Racing</button></a>
+      <a href="https://www.ferrari.com/en-EN/formula1" target="_blank"><button class="nav-btn">Sports Car</button></a>
+      <a href="https://www.ferrari.com/en-IN" target="_blank"><button class="nav-btn">Collections</button></a>
+      <a href="https://www.ferrari.com/en-IN" target="_blank"><button class="nav-btn">About</button></a>
+    </nav>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Mobile Navigation Overlay -->
+  <div class="mobile-nav-overlay" id="mobileNav">
+    <a href="https://www.ferrari.com/en-EN/formula1" target="_blank"><button class="nav-btn">Racing</button></a>
+    <a href="https://www.ferrari.com/en-EN/formula1" target="_blank"><button class="nav-btn">Sports Car</button></a>
+    <a href="https://www.ferrari.com/en-IN" target="_blank"><button class="nav-btn">Collections</button></a>
+    <a href="https://www.ferrari.com/en-IN" target="_blank"><button class="nav-btn">About</button></a>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-meta">EST. 1947 - MARANELLO, ITALY</div>
+    <h1>Ferrari</h1>
+    <p>
+      Ferrari S.p.A. is an Italian luxury sports car manufacturer based in Maranello.
+      Founded in 1939 by Enzo Ferrari, the company built its first car in 1940 and adopted its current name in 1947.
+    </p>
+    <a class="btn" href="C:\Users\HP\Desktop\ferrari\Learn  more.html" target="_self">Discover More</a>
+  </section>
+
+  <!-- Merch CTA -->
+  <div class="merch-container">
+    <a href="C:\Users\HP\Desktop\ferrari\collections.html" style="text-decoration: none;">
+      <button class="merch">
+        <span>Exclusive Collections</span>
+        <div class="merch-shimmer"></div>
+      </button>
+    </a>
+  </div>
+
+  <!-- Racing DNA Section -->
+  <section class="dna-section">
+    <div class="dna-grid">
+      <div class="dna-content">
+        <h2>The Racing DNA</h2>
+        <p>
+          Ferrari is the only constructor to have taken part in every single edition of the Formula 1 World Championship
+          since its inception in 1950. Every road car we build carries the lessons learned from the track—from the
+          precision of our gearboxes to the advanced aerodynamics of our chassis.
+        </p>
+        <div class="dna-stats">
+          <div>
+            <h4>16</h4>
+            <p>Constructors' Titles</p>
+          </div>
+          <div>
+            <h4>243</h4>
+            <p>Grand Prix Wins</p>
+          </div>
+        </div>
+      </div>
+      <div class="dna-image-wrapper">
+        <img src="C:\Users\HP\Desktop\ferrari\founder.jpg" alt="Enzo Ferrari">
+        <div class="dna-quote">
+          <p class="quote-text">"I build engines and attach wheels to them."</p>
+          <p class="quote-author">— Enzo Ferrari</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Maranello Heritage Parallax -->
+  <section class="parallax-banner">
+    <div class="parallax-overlay">
+      <h2 class="parallax-text">"I build engines and attach wheels to them"</h2>
+      <p class="parallax-sub">— ENZO FERRARI</p>
+    </div>
+  </section>
+
+  <!-- Engineering Section -->
+  <section class="engineering-split">
+    <div class="eng-text">
+      <h2>V12 Pure Power</h2>
+      <p>The Ferrari V12 engine is an iconic naturally aspirated masterpiece. Built to deliver absolute sensory perfection, the soaring RPMs mirror our unyielding commitment to racing perfection, both on the track and on the street.</p>
+      <div class="eng-stats">
+        <div class="stat-box">
+          <span class="count-up" data-target="800">0</span>
+          <span>Max CV Output</span>
+        </div>
+        <div class="stat-box">
+          <span class="count-up" data-target="8500">0</span>
+          <span>Redline RPM</span>
+        </div>
+      </div>
+    </div>
+    <div class="eng-image">
+      <img src="C:\Users\HP\Desktop\ferrari\engine.jpg" alt="Engine block">
+    </div>
+  </section>
+
+  <!-- Models -->
+  <h2 class="section-title">Masterpieces</h2>
+  <section class="cards">
+    <a href="C:\Users\HP\Desktop\ferrari\ferrari F12.html" class="card">
+      <img src="C:\Users\HP\Desktop\ferrari\ChatGPT Image Jan 18, 2026, 07_15_30 PM.png" alt="ferrari F12">
+      <div class="card-content">
+        <h3>F12 Berlinetta</h3>
+        <p>740 cv naturally-aspirated V12. 0-100 km/h in 3.1s.</p>
+      </div>
+    </a>
+
+    <a href="C:\Users\HP\Desktop\ferrari\ferrari 488.html" class="card">
+      <img src="C:\Users\HP\Desktop\ferrari\ChatGPT Image Jan 18, 2026, 11_17_34 AM.png" alt="ferrari 488">
+      <div class="card-content">
+        <h3>488 Pista</h3>
+        <p>The highest level of technology transfer from track to road. 720 cv twin-turbo V8.</p>
+      </div>
+    </a>
+
+    <a href="C:\Users\HP\Desktop\ferrari\F40.html" class="card">
+      <img src="C:\Users\HP\Desktop\ferrari\ferrair F40.png" alt="ferrari F40">
+      <div class="card-content">
+        <h3>Ferrari F40</h3>
+        <p>A pure, uncompromising driving machine. Enzo Ferrari's final road car.</p>
+      </div>
+    </a>
+
+    <a href="C:\Users\HP\Desktop\ferrari\SF90.html" class="card">
+      <img src="C:\Users\HP\Desktop\ferrari\SF90.png" alt="SF90">
+      <div class="card-content">
+        <h3>SF90 Stradale</h3>
+        <p>PHEV architecture delivering 1000 cv. The new series-production supercar.</p>
+      </div>
+    </a>
+
+    <a href="#" class="card">
+      <img src="https://images.unsplash.com/photo-1592198084033-aade902d1aae?auto=format&fit=crop&w=800&q=80"
+        alt="Ferrari Roma">
+      <div class="card-content">
+        <h3>Ferrari Roma</h3>
+        <p>La Nuova Dolce Vita. A mid-front-engined 2+ coupé with timeless design.</p>
+      </div>
+    </a>
+
+    <a href="#" class="card">
+      <img src="https://images.unsplash.com/photo-1614200187524-dc4b892acf16?auto=format&fit=crop&w=800&q=80"
+        alt="812 Superfast">
+      <div class="card-content">
+        <h3>812 Superfast</h3>
+        <p>The ultimate front-engine V12 Berlinetta. 800 cv of pure driving emotion.</p>
+      </div>
+    </a>
+
+    <a href="#" class="card">
+      <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=800&q=80"
+        alt="Ferrari Purosangue">
+      <div class="card-content">
+        <h3>Purosangue</h3>
+        <p>The revolutionary four-door, four-seater with iconic Ferrari DNA.</p>
+      </div>
+    </a>
+
+    <a href="#" class="card">
+      <img src="C:\Users\HP\Desktop\ferrari\daytona.png"
+        alt="Daytona SP3">
+      <div class="card-content">
+        <h3>Daytona SP3</h3>
+        <p>The essence of racing spirit. Limited edition Icona series masterpiece.</p>
+      </div>
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <h2>FERRARI</h2>
+        <div class="est">EST. 1947 · MARANELLO, ITALY</div>
+        <p>Born from racing, built for the road. Every Ferrari carries the soul of a champion.</p>
+        <div class="social-links">
+          <a href="#" class="social-circle">IG</a>
+          <a href="#" class="social-circle">YT</a>
+          <a href="#" class="social-circle">X</a>
+          <a href="#" class="social-circle">FB</a>
+        </div>
+      </div>
+
+      <div class="footer-column">
+        <h4>Cars</h4>
+        <ul>
+          <li><a href="#">SF90 Stradale</a></li>
+          <li><a href="#">F12 Berlinetta</a></li>
+          <li><a href="#">488 Pista</a></li>
+          <li><a href="#">Ferrari F40</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>Experience</h4>
+        <ul>
+          <li><a href="#">Formula 1</a></li>
+          <li><a href="#">Driving School</a></li>
+          <li><a href="#">Personalization</a></li>
+          <li><a href="#">Collections</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About Ferrari</a></li>
+          <li><a href="#">News</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Dealers</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="border-top: 1px solid #222; padding: 40px 0;">
+      <p style="font-size: 10px; letter-spacing: 2px; color: #555;">NEED ASSISTANCE?</p>
+      <a href="C:\Users\HP\Desktop\ferrari\complaint.html" class="care-btn">🎧 CUSTOMER CARE</a>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 Ferrari S.p.A. — All rights reserved.</div>
+      <div>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Cookie Policy</a>
+        <a href="#">Legal Notice</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cursor"></div>
+
+  <!-- JavaScript -->
+  <script>
+    // Custom Cursor Logic
+    const cursor = document.querySelector('.cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    const hoverElements = document.querySelectorAll('a, button, .btn, .card, input');
+    hoverElements.forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cursor.style.width = '80px';
+        cursor.style.height = '80px';
+        cursor.style.backgroundColor = 'rgba(255, 40, 0, 0.15)';
+        cursor.style.boxShadow = '0 0 30px rgba(255, 40, 0, 0.9)';
+        cursor.style.border = '2px solid var(--ferrari-gold)';
+      });
+      el.addEventListener('mouseleave', () => {
+        cursor.style.width = '40px';
+        cursor.style.height = '40px';
+        cursor.style.backgroundColor = 'transparent';
+        cursor.style.boxShadow = '0 0 15px rgba(255, 40, 0, 0.6)';
+        cursor.style.border = '2px solid rgba(255, 40, 0, 0.8)';
+      });
+    });
+
+    // Login Logic
+    // Updated Login Logic
+function checkLoginStatus() {
+  const isLoggedIn = localStorage.getItem("loggedIn");
+  const loginPage = document.getElementById("login");
+  
+  // If the user is already logged in, hide the login screen immediately
+  if (isLoggedIn === "true") {
+    loginPage.style.display = "none";
+  }
+}
+
+// Call this function as soon as the script runs
+checkLoginStatus();
+
+function login() {
+  let user = document.getElementById("username").value.trim();
+  let pass = document.getElementById("password").value.trim();
+
+  // Your existing logic allowing empty credentials
+  if (user === "" && pass === "") {
+    localStorage.setItem("loggedIn", "true");
+    let loginPage = document.getElementById("login");
+    loginPage.classList.add("fade-out");
+
+    setTimeout(() => {
+      loginPage.style.display = "none";
+    }, 800);
+  } else {
+    document.getElementById("error").innerText = "Invalid credentials. Please attempt again.";
+    let box = document.querySelector(".login-box");
+    box.style.animation = "shake 0.4s";
+    setTimeout(() => {
+      box.style.animation = "";
+    }, 400);
+  }
+}
+
+    document.querySelectorAll("#username, #password").forEach(input => {
+      input.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+          login();
+        }
+      });
+    });
+
+    // 3D Card Hover Logic
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = (y - centerY) / 15;
+        const rotateY = (centerX - x) / 15;
+
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)`;
+      });
+    });
+
+    // Background Video Parallax
+    window.addEventListener('scroll', () => {
+      const video = document.getElementById('bg-video');
+      let offset = window.pageYOffset;
+      video.style.transform = `translateY(${offset * 0.4}px)`;
+    });
+
+    // Typing Animation for Search
+    const searchInput = document.getElementById('carSearch');
+    const suggestions = ["F12 Berlinetta...", "SF90 Stradale...", "488 Pista...", "Enzo Ferrari..."];
+    let i = 0;
+    let j = 0;
+    let currentWord = "";
+    let isDeleting = false;
+
+    function type() {
+      if (!searchInput) return;
+      currentWord = suggestions[i];
+      if (isDeleting) {
+        searchInput.placeholder = "Search " + currentWord.substring(0, j - 1);
+        j--;
+        if (j == 0) {
+          isDeleting = false;
+          i = (i + 1) % suggestions.length;
+        }
+      } else {
+        searchInput.placeholder = "Search " + currentWord.substring(0, j + 1);
+        j++;
+        if (j == currentWord.length + 1) {
+          isDeleting = true;
+          setTimeout(type, 2000); // Wait before deleting
+          return;
+        }
+      }
+      setTimeout(type, isDeleting ? 100 : 150);
+    }
+    type();
+
+    // Search Logic
+    function handleSearch(event) {
+      if (event.key === "Enter") {
+        const query = event.target.value.toLowerCase().trim();
+        if (query === "f12" || query === "ferrari f12") {
+          window.location.href = "ferrari F12.html";
+        }
+        else if (query === "488" || query === "488 pista") {
+          window.location.href = "ferrari 488.html";
+        }
+        else if (query === "f40" || query === "ferrari f40") {
+          window.location.href = "F40.html";
+        }
+        else if (query === "sf90" || query === "sf90 stradale") {
+          window.location.href = "SF90.html";
+        }
+        else {
+          alert("Car not available. Discover: F12, 488, F40, or SF90");
+        }
+      }
+    }
+
+    // Hamburger Menu Toggle
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    hamburgerBtn.addEventListener('click', () => {
+      hamburgerBtn.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+    });
+    mobileNav.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburgerBtn.classList.remove('open');
+        mobileNav.classList.remove('open');
+      });
+    });
+
+    // Intersection Observer for Scroll Reveal
+    document.addEventListener("DOMContentLoaded", () => {
+      const revealElements = document.querySelectorAll('.hero, .dna-section, .card, .footer, .cards, .parallax-banner, .engineering-split');
+      revealElements.forEach(el => el.classList.add('reveal'));
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      }, { threshold: 0.15 });
+
+      revealElements.forEach(el => observer.observe(el));
+
+      // Number Count-Up Animation
+      const countElements = document.querySelectorAll('.count-up');
+      const countObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
+            const target = parseInt(entry.target.getAttribute('data-target'));
+            let current = 0;
+            const step = Math.ceil(target / 100);
+            const interval = setInterval(() => {
+              current += step;
+              if (current >= target) {
+                current = target;
+                clearInterval(interval);
+              }
+              entry.target.innerText = current;
+            }, 20);
+            entry.target.classList.add('counted');
+            countObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      countElements.forEach(el => countObserver.observe(el));
+    });
+  </script>
+</body>
+
+</html>
