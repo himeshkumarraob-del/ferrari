@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ferrari Collections | Official Merchandise</title>
+  <style>
+    /* Global Styles */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #050505;
+      color: white;
+      cursor: none;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    /* Animated Gradient Background */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 80% 20%, rgba(255, 40, 0, 0.15), transparent 40%),
+                  radial-gradient(circle at 20% 80%, rgba(255, 215, 0, 0.05), transparent 40%);
+      z-index: -1;
+    }
+
+    /* Header & Navigation */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo-text {
+      font-weight: 900;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: #ff2800;
+      margin: 0;
+    }
+
+    .back-home {
+      text-decoration: none;
+      color: yellow;
+      border: 2px solid yellow;
+      padding: 10px 25px;
+      border-radius: 30px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      font-size: 13px;
+    }
+    /* Floating Home Button */
+.home-btn {
+  position: fixed;
+  bottom: 40px;
+  left: 40px;
+  z-index: 9999;
+  background: var(--ferrari-red);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: none;
+  box-shadow: 0 8px 25px rgba(255, 40, 0, 0.4);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.home-btn:hover {
+  background: #fff;
+  color: var(--ferrari-red);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(255, 40, 0, 0.6);
+}
+
+    .back-home:hover {
+      background: yellow;
+      color: black;
+      box-shadow: 0 0 20px rgba(255, 255, 0, 0.4);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1300px;
+      margin: 60px auto;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: 60px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 10px;
+      margin-bottom: 10px;
+      background: linear-gradient(to bottom, #ffffff, #888);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Product Grid */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      padding-bottom: 50px;
+    }
+
+    .product-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 25px;
+      padding: 25px;
+      position: relative;
+      transition: all 0.4s ease;
+      backdrop-filter: blur(5px);
+    }
+
+    .product-card:hover {
+      border-color: #ff2800;
+      transform: translateY(-10px);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      pointer-events: none;
+    }
+
+    .price-tag {
+      font-size: 26px;
+      font-weight: bold;
+      color: yellow;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .buy-now {
+      width: 100%;
+      background: #ff2800;
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      transition: 0.3s;
+    }
+
+    /* Centered Home Button */
+    .merch-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 80px 0;
+    }
+
+    .merch {
+      position: relative;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      border: 1px solid rgba(255, 255, 0, 0.7);
+      border-radius: 4px;
+      padding: 18px 60px;
+      font-size: 24px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 5px;
+      cursor: none;
+      overflow: hidden;
+      transition: all 0.3s ease-in-out;
+      backdrop-filter: blur(12px);
+    }
+
+    .merch:hover {
+      background: #ffff00;
+      color: #000;
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(255, 255, 0, 0.4);
+      letter-spacing: 10px;
+    }
+
+    .merch-shimmer {
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 0, 0.2), transparent);
+      transition: all 0.5s ease;
+    }
+
+    .merch:hover .merch-shimmer { left: 100%; }
+
+    /* Custom Cursor */
+    .cursor {
+      width: 20px;
+      height: 20px;
+      border: 2px solid #ff2800;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s, height 0.2s;
+      box-shadow: 0 0 10px #ff2800;
+    }
+  </style>
+</head>
+<body>
+  <a href="C:\Users\HP\Desktop\ferrari\ferrari vid.html" class="home-btn">🏠 Home</a>
+
+  <div class="cursor"></div>
+
+  <header>
+    <h1 class="logo-text">Collections</h1>
+    <a href="ferrari vid.html" class="back-home">← Home Hub</a>
+  </header>
+
+  <div class="container">
+    <h1 class="section-title">Lifestyle</h1>
+    
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="C:\Users\HP\Desktop\ferrari\watch.png" alt="watch">
+        <h3>Pista Chronograph</h3>
+        <span class="price-tag">$350.00</span>
+        <button class="buy-now">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="C:\Users\HP\Desktop\ferrari\jacket.png" alt="Jacket">
+        <h3>Shield Softshell</h3>
+        <span class="price-tag">$185.00</span>
+        <button class="buy-now">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="C:\Users\HP\Desktop\ferrari\glasses.png" alt="Glasses">
+        <h3>Aviator Carbon</h3>
+        <span class="price-tag">$210.00</span>
+        <button class="buy-now">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="C:\Users\HP\Desktop\ferrari\shoes.png" alt="Shoes">
+        <h3>Driving Speedcat</h3>
+        <span class="price-tag">$145.00</span>
+        <button class="buy-now">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="C:\Users\HP\Desktop\ferrari\bag.png" alt="Bag">
+        <h3>GT Leather Weekender</h3>
+        <span class="price-tag">$1,250.00</span>
+        <button class="buy-now">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="C:\Users\HP\Desktop\ferrari\cap.png" alt="Cap">
+        <h3>F1 Team Cap</h3>
+        <span class="price-tag">$45.00</span>
+        <button class="buy-now">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="C:\Users\HP\Desktop\ferrari\headphones.png" alt="Audio">
+        <h3>V12 Noise-Cancelling</h3>
+        <span class="price-tag">$299.00</span>
+        <button class="buy-now">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="C:\Users\HP\Desktop\ferrari\model.png" alt="Model">
+        <h3>F12 1:18 Diecast</h3>
+        <span class="price-tag">$420.00</span>
+        <button class="buy-now">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="C:\Users\HP\Desktop\ferrari\polo.png" alt="Polo">
+        <h3>Classic Rosso Polo</h3>
+        <span class="price-tag">$95.00</span>
+        <button class="buy-now">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="merch-container">
+      <a href="ferrari vid.html" style="text-decoration: none;">
+        <button class="merch">
+          <span class="merch-text">Home</span>
+          <div class="merch-shimmer"></div>
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    /* Security: Updated Redirect Path */
+    if (localStorage.getItem("loggedIn") !== "true") {
+      window.location.href = "ferrari vid.html";
+    }
+
+    const cursor = document.querySelector('.cursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    /* Hover reactions */
+    document.querySelectorAll('.product-card, .merch, .back-home, .buy-now').forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        cursor.style.width = '60px';
+        cursor.style.height = '60px';
+        cursor.style.borderColor = 'yellow';
+      });
+      item.addEventListener('mouseleave', () => {
+        cursor.style.width = '20px';
+        cursor.style.height = '20px';
+        cursor.style.borderColor = '#ff2800';
+      });
+    });
+
+    /* Add to Cart Feedback */
+    document.querySelectorAll('.buy-now').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.innerText = "Added ✓";
+        btn.style.background = "#28a745";
+        setTimeout(() => {
+          btn.innerText = "Add to Cart";
+          btn.style.background = "#ff2800";
+        }, 2000);
+      });
+    });
+  </script>
+</body>
+</html>

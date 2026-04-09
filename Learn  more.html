@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferrari S.p.A. | The Infinite Legend</title>
+    <style>
+        :root {
+            --ferrari-red: #ff2800;
+            --modena-yellow: #ffeb3b;
+            --deep-black: #050505;
+            --carbon: #121212;
+            --text-bright: #ffffff;
+            --text-dim: #999999;
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--deep-black);
+            color: var(--text-bright);
+            font-family: 'Inter', -apple-system, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Scroll Progress Bar */
+        #progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #222;
+            z-index: 1000;
+        }
+
+        #progress-bar {
+            height: 100%;
+            background: var(--ferrari-red);
+            width: 0%;
+            box-shadow: 0 0 10px var(--ferrari-red);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 50px;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.2), var(--deep-black)),
+                url('https://images.unsplash.com/photo-1592198084033-aade902d1aae?q=80&w=1920');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(4rem, 15vw, 12rem);
+            font-weight: 900;
+            letter-spacing: -5px;
+            line-height: 0.8;
+        }
+
+        .hero span {
+            color: var(--ferrari-red);
+        }
+
+        .hero p {
+            margin-top: 20px;
+            letter-spacing: 12px;
+            text-transform: uppercase;
+            color: var(--modena-yellow);
+            font-weight: bold;
+        }
+
+        /* --- PHILOSOPHY: THE PRANCING HORSE --- */
+        .philosophy {
+            padding: 150px 0;
+            display: flex;
+            align-items: center;
+            gap: 80px;
+        }
+
+        .philosophy-img {
+            flex: 1;
+            position: relative;
+        }
+
+        .philosophy-img img {
+            width: 100%;
+            border-radius: 20px;
+            filter: grayscale(0.5) contrast(1.2);
+        }
+
+        .philosophy-text {
+            flex: 1;
+        }
+
+        .philosophy-text h2 {
+            font-size: 3.5rem;
+            color: var(--ferrari-red);
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        .philosophy-text p {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        /* --- THE ENGINEERING ATELIER --- */
+        .atelier {
+            background: var(--carbon);
+            padding: 120px 0;
+            border-radius: 60px 60px 0 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-title h2 {
+            font-size: 4rem;
+            letter-spacing: 2px;
+        }
+
+        .section-title p {
+            color: var(--ferrari-red);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            font-weight: bold;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .feature-item {
+            background: var(--glass);
+            padding: 50px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .feature-item:hover {
+            transform: translateY(-15px);
+            border-color: var(--ferrari-red);
+        }
+
+        .feature-item h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--modena-yellow);
+        }
+
+        .feature-item p {
+            color: var(--text-dim);
+            font-size: 1rem;
+        }
+
+        /* --- RACING LEGACY STATS --- */
+        .stats-strip {
+            display: flex;
+            justify-content: space-around;
+            padding: 100px 0;
+            background: var(--ferrari-red);
+            color: white;
+            margin-top: -30px;
+            z-index: 10;
+            position: relative;
+        }
+
+        .stat-box {
+            text-align: center;
+        }
+
+        .stat-box h4 {
+            font-size: 4.5rem;
+            font-weight: 900;
+        }
+
+        .stat-box p {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* --- CINEMATIC CARDS --- */
+        .model-gallery {
+            padding: 150px 0;
+        }
+
+        .card-scroller {
+            display: flex;
+            gap: 30px;
+            overflow-x: auto;
+            padding: 20px 0;
+            scrollbar-width: none;
+            /* Hide scrollbar for Firefox */
+        }
+
+        .card-scroller::-webkit-scrollbar {
+            display: none;
+        }
+
+        .car-card {
+            min-width: 400px;
+            height: 550px;
+            background: var(--glass);
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+            transition: 0.4s;
+        }
+
+        .car-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+            transition: 0.5s;
+        }
+
+        .car-card:hover img {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .car-info {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+        }
+
+        .car-info h4 {
+            font-size: 2rem;
+            text-transform: uppercase;
+        }
+
+        .car-info span {
+            color: var(--ferrari-red);
+            font-weight: bold;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 100px 0;
+            background: #000;
+            text-align: center;
+            border-top: 1px solid #111;
+        }
+
+        .footer-logo {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--ferrari-red);
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            margin: 30px 0;
+            color: #555;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+        /* --- GENESIS PARALLAX --- */
+        .genesis {
+            position: relative;
+            background-image: url('https://images.unsplash.com/photo-1549449852-5a4dd06540c4?q=80&w=2000');
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding: 200px 50px;
+            text-align: center;
+            border-top: 1px solid var(--glass);
+            border-bottom: 1px solid var(--glass);
+        }
+
+        .genesis-overlay {
+            background: rgba(0, 0, 0, 0.75);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 80px 60px;
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--ferrari-red);
+            border-radius: 20px;
+        }
+        /* Floating Home Button */
+.home-btn {
+  position: fixed;
+  bottom: 40px;
+  left: 40px;
+  z-index: 9999;
+  background: var(--ferrari-red);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: none;
+  box-shadow: 0 8px 25px rgba(255, 40, 0, 0.4);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.home-btn:hover {
+  background: #fff;
+  color: var(--ferrari-red);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(255, 40, 0, 0.6);
+}
+
+        .genesis-overlay h2 {
+            font-size: 3rem;
+            color: var(--modena-yellow);
+            margin-bottom: 20px;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        .genesis-overlay p {
+            font-size: 1.2rem;
+            color: var(--text-bright);
+            line-height: 2;
+            margin-bottom: 20px;
+        }
+
+        .genesis-overlay .date-stamp {
+            color: var(--ferrari-red);
+            font-size: 2rem;
+            font-weight: bold;
+            letter-spacing: 5px;
+        }
+
+        /* --- THE GOLDEN ERAS (TIMELINE) --- */
+        .golden-eras {
+            padding: 150px 0;
+            background: #080808;
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 80px;
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--ferrari-red);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            width: 45%;
+            background: var(--glass);
+            padding: 50px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .timeline-content h3 {
+            font-size: 2.5rem;
+            color: var(--ferrari-red);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .timeline-content .year {
+            font-size: 1.5rem;
+            color: var(--modena-yellow);
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .timeline-content p {
+            color: var(--text-dim);
+            line-height: 1.8;
+        }
+
+        .timeline-img {
+            width: 45%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+        }
+
+        .timeline-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+            display: block;
+        }
+
+        .timeline-img:hover img {
+            transform: scale(1.05);
+            filter: contrast(1.2);
+        }
+
+        /* --- BIG FIVE --- */
+        .big-five {
+            padding: 150px 0;
+            background: var(--deep-black);
+        }
+
+        .big-five-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .hypercar {
+            background: var(--carbon);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--glass);
+            display: flex;
+            flex-direction: column;
+            transition: 0.5s;
+        }
+
+        .hypercar:hover {
+            transform: translateY(-10px);
+            border-color: var(--ferrari-red);
+        }
+
+        .hypercar img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .hypercar-body {
+            padding: 30px;
+        }
+
+        .hypercar-body h4 {
+            font-size: 1.8rem;
+            color: var(--ferrari-red);
+            margin-bottom: 10px;
+        }
+
+        .hypercar-body p {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
+        /* ANIMATIONS */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: 1s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <a href="C:\Users\HP\Desktop\ferrari\ferrari vid.html" class="home-btn">🏠 Home</a>
+
+    <div id="progress-container">
+        <div id="progress-bar"></div>
+    </div>
+
+    <section class="hero">
+        <h1>FE<span>RR</span>ARI</h1>
+        <p>Performance • Heritage • Emotion</p>
+    </section>
+
+    <div class="container">
+        <section class="philosophy reveal">
+            <div class="philosophy-img">
+                <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=80&w=1000"
+                    alt="Enzo Ferrari Vision">
+            </div>
+            <div class="philosophy-text">
+                <h2>The Spirit of Baracca</h2>
+                <p>In 1923, Enzo Ferrari met Countess Paolina, mother of Count Francesco Baracca, an Italian air force
+                    ace. She told him, "Ferrari, put my son’s prancing horse on your cars. It will bring you luck."</p>
+                <p>The horse was, and still is, black, but Enzo added the canary yellow background—the color of his
+                    birthplace, Modena. Since then, the <i>Cavallino Rampante</i> has become the most recognized symbol
+                    of excellence in the world.</p>
+            </div>
+        </section>
+    </div>
+
+    <section class="genesis reveal">
+        <div class="genesis-overlay">
+            <span class="date-stamp">1947</span>
+            <h2>THE 125 S: WHERE IT ALL BEGAN</h2>
+            <p>On March 12, 1947, Enzo Ferrari ignited the engine of the 125 S, the very first car to bear his name.
+                With its revolutionary 1.5-liter V12 engine designed by Gioachino Colombo, it wasn't just a car; it was
+                a pure declaration of war on the racing establishment.</p>
+            <p>From the streets of Maranello to the circuits of the world, this crimson machine set in motion a legacy
+                of passion, performance, and uncompromising perfection that would dominate the next century.</p>
+        </div>
+    </section>
+
+    <section class="atelier">
+        <div class="container">
+            <div class="section-title reveal">
+                <p>The Masterpieces of Maranello</p>
+                <h2>Technical Mastery</h2>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-item reveal">
+                    <h3>V12 Symphony</h3>
+                    <p>The heart of Ferrari. A naturally aspirated V12 engine that delivers a visceral, high-revving
+                        soundtrack and instant power delivery.</p>
+                </div>
+                <div class="feature-item reveal">
+                    <h3>Aerodynamics</h3>
+                    <p>Every curve is functional. From the S-Duct to active spoilers, our designs are dictated by the
+                        air itself to maximize downforce.</p>
+                </div>
+                <div class="feature-item reveal">
+                    <h3>The E-Building</h3>
+                    <p>Maranello’s new frontier. Blending our high-performance thermal engines with cutting-edge
+                        electric technology for a carbon-neutral future.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-strip">
+        <div class="stat-box">
+            <h4 class="counter" data-target="16">0</h4>
+            <p>Constructors' Titles</p>
+        </div>
+        <div class="stat-box">
+            <h4 class="counter" data-target="243">0</h4>
+            <p>F1 Victories</p>
+        </div>
+        <div class="stat-box">
+            <h4 class="counter" data-target="1000">0</h4>
+            <p>HP (SF90 Stradale)</p>
+        </div>
+    </section>
+
+    <section class="golden-eras">
+        <div class="container">
+            <div class="section-title reveal">
+                <p>Decades of Dominance</p>
+                <h2>The F1 Golden Eras</h2>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <span class="year">1975 – 1977</span>
+                        <h3>The Lauda Supremacy</h3>
+                        <p>Niki Lauda brought technical precision and cold calculation to Maranello. Paired with the
+                            revolutionary 312T featuring a transverse gearbox, Lauda dominated the grid, delivering two
+                            World Drivers' Championships and revitalizing Scuderia Ferrari's terrifying reputation.</p>
+                    </div>
+                    <div class="timeline-img">
+                        <img src="C:\Users\HP\Desktop\ferrari\f1 wheel.jfif"
+                            alt="Vintage F1 Wheel">
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <span class="year">2000 – 2004</span>
+                        <h3>The Dream Team</h3>
+                        <p>Michael Schumacher, Jean Todt, and Ross Brawn orchestrated the most dominant era in Formula 1
+                            history. Schumacher secured an astonishing five consecutive Drivers' titles, painting the
+                            globe red and turning the F2004 into an immortal myth of speed and reliability.</p>
+                    </div>
+                    <div class="timeline-img">
+                        <img src="C:\Users\HP\Desktop\ferrari\schumacher.jfif"
+                            alt="Schumacher Era Red">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <section class="model-gallery reveal">
+            <div class="section-title">
+                <h2>The Current Lineup</h2>
+            </div>
+            <div class="card-scroller">
+                <div class="car-card">
+                    <img src="C:\Users\HP\Desktop\ferrari\SF90.png" alt="SF90">
+                    <div class="car-info">
+                        <span>Hybrid Hypercar</span>
+                        <h4>SF90 Stradale</h4>
+                    </div>
+                </div>
+                <div class="car-card">
+                    <img src="C:\Users\HP\Desktop\ferrari\296 GTB.jfif" alt="296 GTB">
+                    <div class="car-info">
+                        <span>Fun to Drive</span>
+                        <h4>296 GTB</h4>
+                    </div>
+                </div>
+                <div class="car-card">
+                    <img src="C:\Users\HP\Desktop\ferrari\roma.jfif" alt="Roma">
+                    <div class="car-info">
+                        <span>La Nuova Dolce Vita</span>
+                        <h4>Ferrari Roma</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="big-five">
+        <div class="container">
+            <div class="section-title reveal">
+                <p>The Bloodline of Legends</p>
+                <h2>The Big Five Hypercars</h2>
+            </div>
+            <div class="big-five-grid">
+                <div class="hypercar reveal">
+                    <img src="C:\Users\HP\Desktop\ferrari\288 GTO.jfif" alt="288 GTO">
+                    <div class="hypercar-body">
+                        <h4>288 GTO</h4>
+                        <p>The pioneer. Born for Group B racing, it introduced twin-turbocharging to Ferrari's road cars
+                            and frightened the driving elite with its brutal delivery.</p>
+                    </div>
+                </div>
+                <div class="hypercar reveal">
+                    <img src="C:\Users\HP\Desktop\ferrari\ferrair F40.png" alt="F40">
+                    <div class="hypercar-body">
+                        <h4>Ferrari F40</h4>
+                        <p>Enzo’s final masterpiece. Stripped of all luxuries, it was a raw, visceral, twin-turbo V8
+                            weapon built to celebrate exactly 40 years of fierce existence.</p>
+                    </div>
+                </div>
+                <div class="hypercar reveal">
+                    <img src="C:\Users\HP\Desktop\ferrari\la ferrari.jfif" alt="LaFerrari">
+                    <div class="hypercar-body">
+                        <h4>LaFerrari</h4>
+                        <p>The first HY-KERS hybrid. Fusing a brutal V12 with electrical supremacy to produce a
+                            shattering 963 horsepower. The definitive absolute apex.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">FERRARI</div>
+        <p style="color: var(--modena-yellow); font-weight: bold;">SCUDERIA FERRARI HP</p>
+        <div class="footer-links">
+            Maranello, Italy • Established 1947 • Racing Since 1929
+        </div>
+        <p style="color: #222; font-size: 0.6rem;">© 2026 Ferrari S.p.A. | Performance. Prestige. Passion.</p>
+    </footer>
+
+    <script>
+        // 1. Scroll Progress Bar
+        window.onscroll = function () {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+
+            // 2. Reveal Sections on Scroll
+            let reveals = document.querySelectorAll('.reveal');
+            for (let i = 0; i < reveals.length; i++) {
+                let windowHeight = window.innerHeight;
+                let revealTop = reveals[i].getBoundingClientRect().top;
+                let revealPoint = 150;
+                if (revealTop < windowHeight - revealPoint) {
+                    reveals[i].classList.add('active');
+                }
+            }
+        };
+
+        // 3. Animated Stats Counter
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200;
+
+        const startCounters = () => {
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+                    const inc = target / speed;
+
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc);
+                        setTimeout(updateCount, 15);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCount();
+            });
+        };
+
+        // Trigger counters when they come into view
+        let counterObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) startCounters();
+        }, { threshold: 0.5 });
+
+        counterObserver.observe(document.querySelector('.stats-strip'));
+    </script>
+</body>
+
+</html>
