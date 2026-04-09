@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferrari F12 Berlinetta | V12 Pinnacle</title>
+
+    <style>
+        /* --- RESET & THEME VARIABLES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --ferrari-red: #ff2800;
+            --deep-black: #050505;
+            --glass: rgba(255, 255, 255, 0.05);
+            --text-main: #ffffff;
+            --text-dim: #888888;
+        }
+        /* Floating Home Button */
+.home-btn {
+  position: fixed;
+  bottom: 40px;
+  left: 40px;
+  z-index: 9999;
+  background: var(--ferrari-red);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: none;
+  box-shadow: 0 8px 25px rgba(255, 40, 0, 0.4);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.home-btn:hover {
+  background: #fff;
+  color: var(--ferrari-red);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(255, 40, 0, 0.6);
+}
+
+        body {
+            background-color: var(--deep-black);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- PARALLAX BACKGROUND --- */
+        .parallax-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100vh;
+            background: 
+                linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.9)),
+                url("C:/Users/HP/Desktop/ferrari/ChatGPT Image Jan 18, 2026, 07_15_30 PM.png"); /* Your local F12 path */
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            transform: scale(1.1);
+        }
+
+        /* --- HERO SECTION --- */
+        #hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        #hero p {
+            letter-spacing: 10px;
+            font-size: 0.9rem;
+            color: var(--ferrari-red);
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        #hero h1 {
+            font-size: clamp(3rem, 10vw, 7rem);
+            font-weight: 900;
+            line-height: 0.8;
+            text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(255, 40, 0, 0.6);
+        }
+
+        /* --- SHOWCASE SECTION --- */
+        #car-showcase {
+            padding: 100px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .img-container {
+            position: relative;
+            max-width: 1000px;
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(255, 40, 0, 0.2);
+            transition: transform 0.5s ease;
+        }
+
+        .img-container img {
+            width: 100%;
+            display: block;
+            filter: brightness(0.8);
+            transition: filter 0.5s ease;
+        }
+
+        .img-container:hover { transform: scale(1.02); }
+        .img-container:hover img { filter: brightness(1); }
+
+        /* --- INTERACTION SECTION --- */
+        #interaction {
+            padding: 100px 20px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        #interaction h2 {
+            color: var(--ferrari-red);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .description {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            margin-bottom: 50px;
+            font-style: italic;
+        }
+
+        /* NEON BUTTON */
+        #reveal-btn {
+            background: transparent;
+            border: 2px solid var(--ferrari-red);
+            color: white;
+            padding: 20px 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px var(--ferrari-red);
+        }
+
+        #reveal-btn:hover {
+            background: var(--ferrari-red);
+            box-shadow: 0 0 30px var(--ferrari-red);
+            transform: translateY(-5px);
+        }
+
+        /* --- SPECIFICATIONS GRID --- */
+        #specifications {
+            max-width: 1200px;
+            margin: 0 auto 100px;
+            padding: 20px;
+            opacity: 0;
+            display: none;
+            transition: opacity 0.8s ease;
+        }
+
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .spec-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 40px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-left: 5px solid var(--ferrari-red);
+            transition: transform 0.3s ease;
+        }
+
+        .spec-card:hover {
+            transform: translateX(10px);
+            background: rgba(255, 40, 0, 0.1);
+        }
+
+        .spec-card h3 {
+            font-size: 0.8rem;
+            color: var(--ferrari-red);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .spec-card p {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 50px;
+            text-align: center;
+            color: #444;
+            border-top: 1px solid #111;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+<a href="C:\Users\HP\Desktop\ferrari\ferrari vid.html" class="home-btn">🏠 Home</a>
+    <audio id="engineSound">
+        <source src="C:/Users/HP/Desktop/ferrari/f12_rev.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="parallax-bg"></div>
+
+    <section id="hero">
+        <p>Naturally Aspirated Perfection</p>
+        <h1>F12 Berlinetta</h1>
+    </section>
+
+    <section id="car-showcase">
+        <div class="img-container">
+            <img src="C:/Users/HP/Desktop/ferrari/ChatGPT Image Jan 18, 2026, 07_15_30 PM.png" alt="Ferrari F12 Berlinetta">
+        </div>
+    </section>
+
+    <section id="interaction">
+        <h2>Extreme Performance</h2>
+        <p class="description">
+            The Ferrari F12 Berlinetta represents the pinnacle of naturally aspirated V12 engineering, blending raw power with refined elegance.
+        </p>
+        <button id="reveal-btn">Ignite Specifications</button>
+    </section>
+
+    <section id="specifications">
+        <div class="spec-grid">
+            <div class="spec-card">
+                <h3>Engine</h3>
+                <p>6.3L V12</p> </div>
+            <div class="spec-card">
+                <h3>Horsepower</h3>
+                <p>740 HP</p> </div>
+            <div class="spec-card">
+                <h3>0-100 km/h</h3>
+                <p>3.1s</p> </div>
+            <div class="spec-card">
+                <h3>Top Speed</h3>
+                <p>340 km/h</p> </div>
+            <div class="spec-card">
+                <h3>Transmission</h3>
+                <p>7-Speed DCT</p> </div>
+            <div class="spec-card">
+                <h3>Torque</h3>
+                <p>690 Nm</p> </div>
+        </div>
+    </section>
+
+    <footer>
+        © 2026 Ferrari Tribute Page | Designed for Speed
+    </footer>
+
+    <script>
+        const btn = document.getElementById('reveal-btn');
+        const specs = document.getElementById('specifications');
+        const audio = document.getElementById('engineSound');
+
+        btn.addEventListener('click', () => {
+            if (specs.style.display === 'none' || specs.style.display === '') {
+                specs.style.display = 'block';
+                audio.currentTime = 0;
+                audio.play().catch(e => console.log("Audio requires interaction first."));
+
+                setTimeout(() => {
+                    specs.style.opacity = '1';
+                }, 50);
+
+                btn.textContent = "Silence Specs";
+                specs.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                specs.style.opacity = '0';
+                setTimeout(() => {
+                    specs.style.display = 'none';
+                }, 500);
+                btn.textContent = "Ignite Specifications";
+            }
+        });
+    </script>
+</body>
+</html>
