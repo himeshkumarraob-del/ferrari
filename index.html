@@ -66,32 +66,35 @@
     }
 
     /* Custom Cursor */
-    .cursor {
-      width: 40px;
-      height: 40px;
-      border: 2px solid rgba(255, 40, 0, 0.8);
-      background-color: transparent;
-      border-radius: 50%;
-      position: fixed;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
-      box-shadow: 0 0 15px rgba(255, 40, 0, 0.6);
-      z-index: 99999;
-    }
+   .cursor {
+  width: 20px;
+  height: 20px;
+  background: var(--ferrari-red);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  mix-blend-mode: difference;
+  transition: transform 0.15s ease, width 0.4s ease, height 0.4s ease, border-radius 0.4s ease;
+  transform: translate(-50%, -50%);
+  filter: blur(1px);
+  box-shadow: 0 0 12px rgba(255,40,0,0.8), 0 0 30px rgba(255,40,0,0.4);
+}
 
-    .cursor::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 8px;
-      height: 8px;
-      background-color: var(--ferrari-red);
-      border-radius: 50%;
-      box-shadow: 0 0 10px var(--ferrari-red);
-    }
+.cursor.hovering {
+  width: 70px;
+  height: 70px;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  filter: blur(4px);
+  box-shadow: 0 0 30px rgba(255,40,0,1), 0 0 60px rgba(255,40,0,0.6);
+}
+
+.cursor.clicking {
+  width: 50px;
+  height: 50px;
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  filter: blur(6px);
+}
 
     /* Video background */
     #bg-video {
@@ -1458,29 +1461,46 @@
   <!-- JavaScript -->
   <script>
     // Custom Cursor Logic
-    const cursor = document.querySelector('.cursor');
-    document.addEventListener('mousemove', e => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-    });
+   const cursor = document.querySelector('.cursor');
+let mouseX = 0, mouseY = 0;
+let curX = 0, curY = 0;
 
-    const hoverElements = document.querySelectorAll('a, button, .btn, .card, input');
-    hoverElements.forEach(el => {
-      el.addEventListener('mouseenter', () => {
-        cursor.style.width = '80px';
-        cursor.style.height = '80px';
-        cursor.style.backgroundColor = 'rgba(255, 40, 0, 0.15)';
-        cursor.style.boxShadow = '0 0 30px rgba(255, 40, 0, 0.9)';
-        cursor.style.border = '2px solid var(--ferrari-gold)';
-      });
-      el.addEventListener('mouseleave', () => {
-        cursor.style.width = '40px';
-        cursor.style.height = '40px';
-        cursor.style.backgroundColor = 'transparent';
-        cursor.style.boxShadow = '0 0 15px rgba(255, 40, 0, 0.6)';
-        cursor.style.border = '2px solid rgba(255, 40, 0, 0.8)';
-      });
-    });
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+
+  // Organic blob shape shift on move
+  cursor.style.borderRadius = `
+    ${30 + Math.sin(Date.now() * 0.003) * 20}% 
+    ${70 - Math.sin(Date.now() * 0.003) * 20}% 
+    ${60 + Math.cos(Date.now() * 0.002) * 20}% 
+    ${40 - Math.cos(Date.now() * 0.002) * 20}% /
+    ${50 + Math.sin(Date.now() * 0.004) * 20}% 
+    ${40 - Math.sin(Date.now() * 0.004) * 20}% 
+    ${60 + Math.cos(Date.now() * 0.003) * 20}% 
+    ${50 - Math.cos(Date.now() * 0.003) * 20}%
+  `;
+});
+
+// Smooth magnetic lag follow
+function animateCursor() {
+  curX += (mouseX - curX) * 0.12;
+  curY += (mouseY - curY) * 0.12;
+  cursor.style.left = curX + 'px';
+  cursor.style.top = curY + 'px';
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+// Hover blob expand
+document.querySelectorAll('a, button, .btn, .card, input').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('hovering'));
+});
+
+// Click splat
+document.addEventListener('mousedown', () => cursor.classList.add('clicking'));
+document.addEventListener('mouseup', () => cursor.classList.remove('clicking'));
 
     // Login Logic
     // Updated Login Logic
